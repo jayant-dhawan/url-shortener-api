@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
+var verifyRouter = require('./routes/verify');
 
 var app = express();
 
@@ -47,6 +48,7 @@ initPassport(passport);
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use('/verify', verifyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

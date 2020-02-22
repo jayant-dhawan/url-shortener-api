@@ -10,5 +10,13 @@ module.exports = mongoose.model('users', new Schema({
     passwordHash: {
         type : String,
         required : true,
-      }
+      },
+    token: {
+      type: String,
+      required: true
+    },
+    verified: {
+      type: Boolean,
+      required: true
+    }
 }))

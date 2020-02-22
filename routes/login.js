@@ -3,8 +3,15 @@ var router = express.Router();
 var passport = require('passport');
 const jwt = require('jsonwebtoken');
 
+router.get('/', (req, res) => {
+  res.render('error', { message: "Not Found", error: {
+      status: "404",
+      stack: ""
+  } });
+})
+
 /* Handle Login POST */
-router.post('/login', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     passport.authenticate('login', async (err, user, info) => {
       try {
         if (err || !user) {

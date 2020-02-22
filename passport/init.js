@@ -1,4 +1,5 @@
 var strategy = require('./strategy');
+var RegisterStrategy = require('./register-strategy');
 var User = require('../models/user');
 
 module.exports = function (passport) {
@@ -16,4 +17,5 @@ module.exports = function (passport) {
 
     // Setting up Passport Strategies for Login and SignUp/Registration
     strategy(passport);
+    RegisterStrategy(passport);
 }

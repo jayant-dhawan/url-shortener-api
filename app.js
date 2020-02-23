@@ -15,6 +15,7 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var verifyRouter = require('./routes/verify');
+var shortenRouter = require('./routes/shorten');
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/verify', verifyRouter);
+app.use('/shorten', passport.authenticate('jwt', { session : false }), shortenRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

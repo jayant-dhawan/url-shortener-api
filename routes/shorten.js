@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 router.post('/', async (req, res) => {
   var redirect = req.body.url;
   var email = req.body.email;
-  if(validURL.isUri(redirect)){
+  if (validURL.isUri(redirect)) {
     var redirectid = await shortid.generate();
     const result = await redirectSchema.create({
       email,
@@ -22,10 +22,51 @@ router.post('/', async (req, res) => {
       redirectid
     });
     var newURL = baseURL + result.redirectid;
-    res.json({ "short-url" : newURL });
+    res.json({ "short-url": newURL });
   } else {
     res.json("Not a valid URL!");
   }
 });
+
+router.post('/custom/:id', async (req, res) => {
+  var redirectid = req.params.id;
+  var user = req.user.email;
+  var custom = req.body.custom;
+  if (await validateUser(user, redirectid)) {
+    var response = await redirectSchema.findOne({ redirectid });
+    if (response.redirectid == redirectid) {
+      if (!response.custom) {
+        redirectSchema.updateOne({ "redirectid": redirectid },
+          {
+            $set: {
+              "customRedirect": custom
+            }
+          }).then(data => {
+            console.log(data);
+            if (data.nModified == 0) {
+              res.json("Custom url exist");
+            } else {
+              res.json("Successfull");
+            }
+          }).catch(error => {
+            res.json("There is an error");
+          })
+      } else {
+        res.json("Custom URL already set");
+      }
+    }
+
+  } else {
+    res.sendStatus(401);
+  }
+});
+
+async function validateUser(user, redirectid) {
+  const response = await redirectSchema.findOne({ redirectid });
+  if (user == response.email) {
+    return true
+  }
+  else return false
+}
 
 module.exports = router;

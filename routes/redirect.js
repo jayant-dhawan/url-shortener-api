@@ -19,33 +19,62 @@ router.get('/:redirectid', async (req, res) => {
     .then(response => {
       clientGEO = response;
     });
-  redirectClicks.create({
-    redirectid: redirectid,
-    ip: clientIp,
-    country: clientGEO.country,
-    countryCode: clientGEO.countryCode,
-    region: clientGEO.region,
-    regionName: clientGEO.regionName,
-    city: clientGEO.city,
-    zip: clientGEO.zip,
-    lat: clientGEO.lat,
-    lon: clientGEO.lon,
-    timezone: clientGEO.timezone,
-    isp: clientGEO.isp
-  })
-    .then(data => {
-      console.log(data);
-    })
-    .catch(error => {
-      res.send(error);
-    })
   redirects.findOne({ redirectid }, (error, link) => {
-    if(error){
+    if (error) {
       res.send(error);
     }
-    res.redirect(link.redirect);
+    if (link) {
+      redirectClicks.create({
+        redirectid: redirectid,
+        ip: clientIp,
+        country: clientGEO.country,
+        countryCode: clientGEO.countryCode,
+        region: clientGEO.region,
+        regionName: clientGEO.regionName,
+        city: clientGEO.city,
+        zip: clientGEO.zip,
+        lat: clientGEO.lat,
+        lon: clientGEO.lon,
+        timezone: clientGEO.timezone,
+        isp: clientGEO.isp
+      })
+        .catch(error => {
+          res.send(error);
+        })
+      res.redirect(link.redirect);
+    }
+    else if (!link) {
+      redirects.findOne({ customRedirect: redirectid }, (error, link) => {
+        if (error) {
+          res.send(error);
+        }
+        else if (link) {
+          redirectClicks.create({
+            redirectid: redirectid,
+            ip: clientIp,
+            country: clientGEO.country,
+            countryCode: clientGEO.countryCode,
+            region: clientGEO.region,
+            regionName: clientGEO.regionName,
+            city: clientGEO.city,
+            zip: clientGEO.zip,
+            lat: clientGEO.lat,
+            lon: clientGEO.lon,
+            timezone: clientGEO.timezone,
+            isp: clientGEO.isp
+          })
+            .catch(error => {
+              res.send(error);
+            })
+          res.redirect(link.redirect);
+        } else {
+          res.json("no redirect found");
+        }
+      })
+    } else {
+      res.json("no redirect found");
+    }
   });
-  
 });
 
 async function getGEO(clientIp) {

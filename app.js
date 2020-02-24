@@ -18,6 +18,7 @@ var verifyRouter = require('./routes/verify');
 var shortenRouter = require('./routes/shorten');
 var getRedirectsRouter = require('./routes/getRedirects');
 var redirectRouter = require('./routes/redirect');
+var getClickCountRouter = require('./routes/getClickDetails');
 
 var app = express();
 
@@ -55,6 +56,7 @@ app.use('/verify', verifyRouter);
 app.use('/shorten', passport.authenticate('jwt', { session: false }), shortenRouter);
 app.use('/redirects', passport.authenticate('jwt', { session: false }), getRedirectsRouter);
 app.use('/r', redirectRouter);
+app.use('/click', passport.authenticate('jwt', { session: false }), getClickCountRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

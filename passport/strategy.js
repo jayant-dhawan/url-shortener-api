@@ -5,15 +5,27 @@ const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 var bcrypt = require('bcrypt');
 
+async function validatePassword(password, passwordHash) {
+  var result = false;
+  await bcrypt.compare(password, passwordHash)
+    .then(response => {
+      result = response;
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  return result;
+}
+
 module.exports = function (passport) {
 
   passport.use('login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
   },
-    function (username, password, done) {
+    async function (username, password, done) {
       // check in mongo if a user with username exists or not
-      User.findOne({ email: username }, function (err, user) {
+      await User.findOne({ email: username }, async function (err, user) {
         if (err) {
           return done(err);
         }
@@ -21,10 +33,9 @@ module.exports = function (passport) {
           console.log('User Not Found with username ' + username);
           return done(null, false);
         }
-        if (bcrypt.compare(password, user.passwordHash)) {
+        if (await validatePassword(password, user.passwordHash)) {
           return done(null, user);
         }
-
         return done(null, false);
       })
     }));

@@ -7,12 +7,7 @@ const redirects = require('../models/redirects');
 
 /* Handle GET Request */
 router.get('/', (req, res) => {
-  res.render('error', {
-    message: "Not Found", error: {
-      status: "404",
-      stack: ""
-    }
-  });
+  res.sendStatus(404);
 })
 
 /* Handle Redirect Request */

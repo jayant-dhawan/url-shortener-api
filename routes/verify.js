@@ -3,19 +3,13 @@ var router = express.Router();
 var User = require('../models/user');
 
 router.get('/', (req, res) => {
-  res.render('error', {
-    message: "Not Found", error: {
-      status: "404",
-      stack: ""
-    }
-  });
+  res.sendStatus(404);
 })
 
 router.get('/:id', (req, res) => {
   User.updateOne({ token: req.params.id }, { $set: { verified: true }, $unset: { token: "" } }, (err, user) => {
     if (err) {
-      console.log(err);
-      res.send(err);
+      res.json("There is some error");
     }
     else if (user.nModified > 0) {
       console.log(user);

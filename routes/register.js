@@ -3,12 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 
 router.get('/', (req, res) => {
-  res.render('error', {
-    message: "Not Found", error: {
-      status: "404",
-      stack: ""
-    }
-  });
+  res.sendStatus(404);
 })
 
 /* Handle Request POST */

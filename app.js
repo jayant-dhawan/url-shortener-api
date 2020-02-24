@@ -16,6 +16,8 @@ var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var verifyRouter = require('./routes/verify');
 var shortenRouter = require('./routes/shorten');
+var getRedirectsRouter = require('./routes/getRedirects');
+var redirectRouter = require('./routes/redirect');
 
 var app = express();
 
@@ -50,7 +52,9 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/verify', verifyRouter);
-app.use('/shorten', passport.authenticate('jwt', { session : false }), shortenRouter);
+app.use('/shorten', passport.authenticate('jwt', { session: false }), shortenRouter);
+app.use('/redirects', passport.authenticate('jwt', { session: false }), getRedirectsRouter);
+app.use('/r', redirectRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

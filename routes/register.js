@@ -7,10 +7,13 @@ router.get('/', (req, res) => {
 })
 
 /* Handle Request POST */
-router.post('/', passport.authenticate('register', { session: false }), async (req, res, next) => {
+router.post('/', passport.authenticate('register', { session: false }),(req, res) => {
   res.json({
     message: 'Signup successful',
-    user: req.user
+    firstname: req.user.firstname,
+    lastname: req.user.lastname,
+    email: req.user.email,
+    verified: req.user.verified
   });
 });
 

@@ -31,20 +31,36 @@ function sendVerificationEmail(email, token) {
 module.exports = function (passport) {
   passport.use('register', new LocalStrategy({
     usernameField: 'email',
-    passwordField: 'password'
-  }, async (email, password, done) => {
+    passwordField: 'password',
+    passReqToCallback: true
+  }, async (req, email, password, done) => {
     try {
-      //conver password to hash
+      //convert password to hash
+      const firstname = req.body.firstname;
+      const lastname = req.body.lastname;
       const passwordHash = await bcrypt.hash(password, 10);
       //Create random token for verification
-      var token = randomToken(16);
-      var verified = false;
+      const token = randomToken(16);
+      const verified = false;
       //Save the information provided by the user to the the database
-      const user = await User.create({ email, passwordHash, token, verified });
+      // const data = {
+      //   firstname,
+      //   lastname,
+      //   email,
+      //   passwordHash,
+      //   token,
+      //   verified
+      // };
+      // const object = new User(data);
+      // object.save().then(data => {
+      //   console.log(data)
+      //   return done(null,data);
+      // })
+      const user = await User.create({ firstname, lastname, email, passwordHash, token, verified });
       //Send Verification Email
       sendVerificationEmail(email, token);
       //Send the user information to the next middleware
-      return done(null, user.username);
+      return done(null, user);
     } catch (error) {
       done(error);
     }

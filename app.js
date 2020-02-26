@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+const cors = require('cors');
 var session = require('express-session');
 var passport = require('passport');
 var mongoose = require('mongoose');
@@ -39,6 +40,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'url-shortner',
@@ -74,6 +76,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(8080);
+var port = process.env.port || 5000;
+app.listen(port);
 
 module.exports = app;

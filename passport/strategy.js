@@ -17,6 +17,15 @@ async function validatePassword(password, passwordHash) {
   return result;
 }
 
+var cookieExtractor = function(req) {
+  var token = null;
+  if (req && req.cookies)
+  {
+    token = req.cookies['jwt'];
+  }
+  return token;
+};
+
 module.exports = function (passport) {
 
   passport.use('login', new LocalStrategy({
@@ -44,7 +53,7 @@ module.exports = function (passport) {
     //secret we used to sign our JWT
     secretOrKey: 'top_secret',
     //we expect the user to send the token as a query parameter with the name 'jwt'
-    jwtFromRequest: ExtractJWT.fromHeader('jwt')
+    jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor, ExtractJWT.fromHeader('jwt'), ExtractJWT.fromAuthHeaderWithScheme('Token')]) //ExtractJWT.fromHeader('jwt')
   }, async (token, done) => {
     try {
       //Pass the user details to the next middleware

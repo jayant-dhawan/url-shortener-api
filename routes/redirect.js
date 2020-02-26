@@ -68,11 +68,11 @@ router.get('/:redirectid', async (req, res) => {
             })
           res.redirect(link.redirect);
         } else {
-          res.json("no redirect found");
+          res.send("no redirect found");
         }
       })
     } else {
-      res.json("no redirect found");
+      res.send("no redirect found");
     }
   });
 });

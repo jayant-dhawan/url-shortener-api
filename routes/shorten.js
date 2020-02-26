@@ -16,13 +16,21 @@ router.post('/', async (req, res) => {
   var email = req.body.email;
   if (validURL.isUri(redirect)) {
     var redirectid = await shortid.generate();
-    const result = await redirectSchema.create({
+    await redirectSchema.create({
       email,
       redirect,
-      redirectid
+      redirectid,
+      customRedirect: redirectid
+    }, (error, result) => {
+    if(error){
+      res.send(error);
+    } else if(result.redirectid) {
+      var newURL = baseURL + result.redirectid;
+      res.json({ "shortUrl": newURL });
+    } else {
+      res.json("error");
+    }
     });
-    var newURL = baseURL + result.redirectid;
-    res.json({ "short-url": newURL });
   } else {
     res.json("Not a valid URL!");
   }

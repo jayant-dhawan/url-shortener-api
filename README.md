@@ -1,6 +1,6 @@
 # URL Shortner API
 
-A url shortner API made with nodejs, express js and mongo db
+A url shortner API made with NodeJS, ExpressJS, Passport and MongoDB
 
 
 ## Endpoints:
@@ -185,3 +185,14 @@ Required feilds: `redirectid`
   ]
 }
 ```
+
+
+## Configuration
+
+### MongoDB link
+
+Add mongodb link to `db.js` file to configure MongoDB
+
+### SMTP setup for email verification
+
+Configure SMTP and Email format in `./passport/register-strategy.js`

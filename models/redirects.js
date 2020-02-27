@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//MongoDB Schema for a redirect
 module.exports = mongoose.model('redirects', new Schema({
   email: {
     type: String,

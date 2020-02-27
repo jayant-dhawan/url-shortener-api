@@ -21,7 +21,7 @@ function sendVerificationEmail(email, token) {
     to: "bar@example.com, baz@example.com", // list of receivers
     subject: "Verify Email", // Subject line
     text: "Verify your email by clicking the link below", // plain text body
-    html: '<a href="http://localhost/verify/' + token + '">Click Here</a>' // html body
+    html: '<a href="http://localhost:5000/verify/' + token + '?email="' + email +'>Click Here</a>' // html body
   });
 
   console.log("Message sent: %s", info.messageId);
@@ -43,19 +43,6 @@ module.exports = function (passport) {
       const token = randomToken(16);
       const verified = false;
       //Save the information provided by the user to the the database
-      // const data = {
-      //   firstname,
-      //   lastname,
-      //   email,
-      //   passwordHash,
-      //   token,
-      //   verified
-      // };
-      // const object = new User(data);
-      // object.save().then(data => {
-      //   console.log(data)
-      //   return done(null,data);
-      // })
       const user = await User.create({ firstname, lastname, email, passwordHash, token, verified });
       //Send Verification Email
       sendVerificationEmail(email, token);

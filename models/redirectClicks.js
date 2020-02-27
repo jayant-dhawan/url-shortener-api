@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//MongoDB Schema for click detalis
 module.exports = mongoose.model('redirectClicks', new Schema({
     redirectid: {
         type: String,

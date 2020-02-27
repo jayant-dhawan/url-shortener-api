@@ -10,8 +10,8 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var db = require('./db');
 var initPassport = require('./passport/init');
-const jwt = require('jsonwebtoken');
 
+//All the routers
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');

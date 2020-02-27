@@ -151,7 +151,7 @@ Required feilds: `redirectid`
 }
 ```
 
-### ClickCounts
+### ClickCount
 
 ```JSON
 {

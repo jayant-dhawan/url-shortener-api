@@ -44,7 +44,7 @@ Required fields: `email`, `firstname`, `password`
 
 `GET /verify/:token?email=<email>`
 
-No authentication required, returns a status message
+No authentication required, returns a [UserVerify](#userverify)
 
 Required feilds: `token`, `email`
 
@@ -59,7 +59,7 @@ Example request body:
 }
 ```
 
-Authentication required, returns a short url
+Authentication required, returns a [ShortUrl](#shorturl)
 
 Required feilds: `url`
 
@@ -119,6 +119,22 @@ Required feilds: `redirectid`
 }
 ```
 
+### UserVerify
+
+```JSON
+{
+  "status": "verified"
+}
+```
+
+### ShortUrl
+
+```JSON
+{
+  "shortUrl": "a short url"
+}
+```
+
 ### Redirects
 
 ```JSON
@@ -135,7 +151,7 @@ Required feilds: `redirectid`
 }
 ```
 
-### Click Counts
+### ClickCounts
 
 ```JSON
 {
@@ -144,7 +160,7 @@ Required feilds: `redirectid`
 }
 ```
 
-### Click Details
+### ClickDetails
 
 ```JSON
 {

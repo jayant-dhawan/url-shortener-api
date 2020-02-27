@@ -1,6 +1,6 @@
-# URL Shortner API
+# URL Shortener API
 
-A url shortner API made with NodeJS, ExpressJS, Passport and MongoDB
+A url shortener API made with NodeJS, ExpressJS, Passport and MongoDB
 
 
 ## Endpoints:

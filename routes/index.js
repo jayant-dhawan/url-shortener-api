@@ -4,7 +4,7 @@ var passport = require('passport');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'URL Shorten API' });
+  res.render('index', { title: 'URL Shortener API' });
 });
 
 router.get('/profile', passport.authenticate('jwt', { session : false }), (req, res, next) => {

@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
     if(error){
       res.json({ errorStatus: error.status });
     } else if(result.redirectid) {
-      var newURL = baseURL + result.redirectid; //return shorten url
+      var newURL = baseURL + "r/" + result.redirectid; //return shorten url
       res.json({ "shortUrl": newURL });
     } else {
       res.json({ errorMessage : "there is an error" }); // return error if any
@@ -73,7 +73,7 @@ router.post('/custom/:id', async (req, res) => {
             if (data.nModified == 0) {
               res.json({ status: "custom url not available try another" }); //Return if custom url is not available
             } else {
-              res.json({ status: "successfull", customUrl: baseURL + custom }); // Return Successfull message if custom url is generated
+              res.json({ status: "successfull", customUrl: baseURL + "r/" + custom }); // Return Successfull message if custom url is generated
             }
           }).catch(error => {
             res.json({ error: error.status });

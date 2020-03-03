@@ -6,6 +6,8 @@ API live at [https://api-urlshortener.herokuapp.com/](https://api-urlshortener.h
 
 ## Endpoints:
 
+For routes which require authentication send jwt token in header with 'jwt' as key.
+
 ### Authentication:
 
 `POST /login`

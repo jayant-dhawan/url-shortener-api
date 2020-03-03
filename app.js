@@ -59,6 +59,9 @@ app.use('/shorten', passport.authenticate('jwt', { session: false }), shortenRou
 app.use('/redirects', passport.authenticate('jwt', { session: false }), getRedirectsRouter);
 app.use('/r', redirectRouter);
 app.use('/click', passport.authenticate('jwt', { session: false }), getClickDetailsRouter);
+app.all('*', (req, res) => {
+  res.sendStatus(404);
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

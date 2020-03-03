@@ -22,7 +22,6 @@ No authentication required, returns a [UserLogin](#userlogin)
 
 Required fields: `email`, `password`
 
-
 ### Registration:
 
 `POST /register`
@@ -61,6 +60,21 @@ Example request body:
 ```
 
 Authentication required, returns a [ShortUrl](#shorturl)
+
+Required feilds: `url`
+
+### Custom
+
+`POST /shorten/custom/:redirectid`
+
+Example request body:
+```JSON
+{
+    "custom": "custom url for the short url"
+}
+```
+
+Authentication required, returns a [CustomShortUrl](#customshorturl)
 
 Required feilds: `url`
 
@@ -133,6 +147,14 @@ Required feilds: `redirectid`
 ```JSON
 {
   "shortUrl": "a short url"
+}
+```
+
+### CustomShortUrl
+
+```JSON
+{
+  "customUrl": "a custom short url"
 }
 ```
 

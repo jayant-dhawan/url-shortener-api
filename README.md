@@ -191,7 +191,7 @@ Required feilds: `redirectid`
 
 ### Sample .env file to configure API
 
-'''
+```
 # Base URL
 BASEURL = "Baseurl of backend"
 
@@ -206,6 +206,6 @@ MONGODBURL = "Link to MongoDB Databse"
 
 #JWT Secret Key
 JWTSECRET = "Your JWT Secret Key for authentication"
-'''
+```
 
 

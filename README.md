@@ -1,6 +1,7 @@
 # URL Shortener API
 
-A url shortener API made with NodeJS, ExpressJS, Passport and MongoDB
+A url shortener API made with NodeJS, ExpressJS, Passport and MongoDB.
+API live at [https://api-urlshortener.herokuapp.com/](https://api-urlshortener.herokuapp.com/)
 
 
 ## Endpoints:

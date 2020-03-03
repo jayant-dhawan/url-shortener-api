@@ -51,7 +51,7 @@ module.exports = function (passport) {
 
   passport.use('jwt', new JWTStrategy({
     //secret we used to sign our JWT
-    secretOrKey: 'top_secret',
+    secretOrKey: process.env.JWTSECRET,
     //we expect the user to send the token as a query parameter with the name 'jwt'
     jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor, ExtractJWT.fromHeader('jwt'), ExtractJWT.fromAuthHeaderWithScheme('Token')]) //ExtractJWT.fromHeader('jwt')
   }, async (token, done) => {

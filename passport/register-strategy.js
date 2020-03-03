@@ -7,25 +7,31 @@ const randomToken = require('random-token').create("url-shortner");
 // Nodemailer function to send Verification email
 
 function sendVerificationEmail(email, token) {
-  let testAccount = nodemailer.createTestAccount();
   const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
+    pool: true,
+    secure: true,
+    host: process.env.HOST,
+    port: process.env.PORTSMTP,
     auth: {
-      user: 'alexandre.homenick@ethereal.email',
-      pass: 'yXT4WgSXfJp4BQQSYP'
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD
     }
   });
-  let info = transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: "bar@example.com, baz@example.com", // list of receivers
+  transporter.sendMail({
+    from: `"URL Shortner api" <${process.env.EMAIL}>`, // sender address
+    to: email, // list of receivers
     subject: "Verify Email", // Subject line
     text: "Verify your email by clicking the link below", // plain text body
-    html: '<a href="http://localhost:5000/verify/' + token + '?email="' + email +'>Click Here</a>' // html body
-  });
-
-  console.log("Message sent: %s", info.messageId);
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    html: '<p>Verify your email by clicking the link below <a href="' + process.env.BASEURL + "veirfy/" + token + '?email=' + email + '">Click Here</a></p>' // html body
+  })
+    .then(data => {
+      if (messageId) {
+        return true;
+      } else {
+        return false
+      }
+    })
+    .catch(error => { return(false) });
 }
 
 module.exports = function (passport) {

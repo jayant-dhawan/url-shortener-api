@@ -189,10 +189,23 @@ Required feilds: `redirectid`
 
 ## Configuration
 
-### MongoDB link
+### Sample .env file to configure API
 
-Add mongodb link to `db.js` file to configure MongoDB
+'''
+# Base URL
+BASEURL = "Baseurl of backend"
 
-### SMTP setup for email verification
+#SMTP Settings
+EMAIL = "Your Email"
+PASSWORD = "Password for email"
+PORTSMTP = Port for SMTP Server
+HOST = "Host for SMTP Server"
 
-Configure SMTP and Email format in `./passport/register-strategy.js`
+#MongoDB Link
+MONGODBURL = "Link to MongoDB Databse"
+
+#JWT Secret Key
+JWTSECRET = "Your JWT Secret Key for authentication"
+'''
+
+

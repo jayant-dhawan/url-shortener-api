@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
       }
       if(redirects)
         res.json({ status: "successfull", redirects }); //Return all the redirects
-      else res.json({ status: "No redirects found" }); //Return not found if redirects is empty
+      else res.json({ status: "no redirects found" }); //Return not found if redirects is empty
     })
   } else {
     res.sendStatus(401);

@@ -3,7 +3,7 @@ const router = express.Router();
 const shortid = require('shortid');
 const validURL = require('valid-url');
 const redirectSchema = require('../models/redirects');
-var baseURL = "localhost:8080/"
+var baseURL = process.env.baseURL || "http://localhost:5000/";
 
 /* Handle GET Request */
 router.get('/', (req, res) => {

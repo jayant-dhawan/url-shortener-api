@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,7 +9,6 @@ const cors = require('cors');
 var session = require('express-session');
 var passport = require('passport');
 var mongoose = require('mongoose');
-var db = require('./db');
 var initPassport = require('./passport/init');
 
 //All the routers
@@ -19,11 +19,11 @@ var verifyRouter = require('./routes/verify');
 var shortenRouter = require('./routes/shorten');
 var getRedirectsRouter = require('./routes/getRedirects');
 var redirectRouter = require('./routes/redirect');
-var getClickCountRouter = require('./routes/getClickDetails');
+var getClickDetailsRouter = require('./routes/getClickDetails');
 
 var app = express();
 
-mongoose.connect(db.url, {
+mongoose.connect(process.env.MONGODBURL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
@@ -58,7 +58,7 @@ app.use('/verify', verifyRouter);
 app.use('/shorten', passport.authenticate('jwt', { session: false }), shortenRouter);
 app.use('/redirects', passport.authenticate('jwt', { session: false }), getRedirectsRouter);
 app.use('/r', redirectRouter);
-app.use('/click', passport.authenticate('jwt', { session: false }), getClickCountRouter);
+app.use('/click', passport.authenticate('jwt', { session: false }), getClickDetailsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

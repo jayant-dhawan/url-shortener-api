@@ -22,7 +22,7 @@ function sendVerificationEmail(email, token) {
     to: email, // list of receivers
     subject: "Verify Email", // Subject line
     text: "Verify your email by clicking the link below", // plain text body
-    html: '<p>Verify your email by clicking the link below <a href="' + process.env.BASEURL + "veirfy/" + token + '?email=' + email + '">Click Here</a></p>' // html body
+    html: '<p>Verify your email by clicking the link below <a href="' + process.env.BASEURL + "verify/" + token + '?email=' + email + '">Click Here</a></p>' // html body
   })
     .then(data => {
       if (messageId) {

@@ -76,7 +76,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var port = process.env.port || 5000;
+var port = process.env.PORT || 5000;
 app.listen(port);
 
 module.exports = app;

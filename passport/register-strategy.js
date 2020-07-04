@@ -31,7 +31,7 @@ function sendVerificationEmail(email, token) {
         return false
       }
     })
-    .catch(error => { return(false) });
+    .catch(error => { return (false) });
 }
 
 module.exports = function (passport) {
@@ -48,10 +48,23 @@ module.exports = function (passport) {
       //Create random token for verification
       const token = randomToken(16);
       const verified = false;
+      let user = {};
       //Save the information provided by the user to the the database
-      const user = await User.create({ firstname, lastname, email, passwordHash, token, verified });
-      //Send Verification Email
-      sendVerificationEmail(email, token);
+      try {
+        user = await User.create({ firstname, lastname, email, passwordHash, token, verified });
+        user.message = "Signup Successfull";
+        user.status = true;
+        //Send Verification Email
+        sendVerificationEmail(email, token);
+      } catch (error) {
+        if (error.code == '11000') {
+          user.status = false,
+            user.message = "User already exist"
+        } else {
+          user.status = false,
+            user.message = "There is some error"
+        }
+      }
       //Send the user information to the next middleware
       return done(null, user);
     } catch (error) {

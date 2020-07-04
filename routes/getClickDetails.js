@@ -15,7 +15,7 @@ router.get('/count/:redirectid', async (req, res) => {
   if (validateUser(userEmail, redirectid)) {
     redirectClicks.countDocuments({ redirectid }, (error, count) => {
       if (error) {
-        res.json({ error: error.status });
+        res.json({ status: "failed" });
       }
       if(count){
         res.json({ status: "successfull", count });
@@ -38,7 +38,7 @@ router.get('/details/:redirectid', (req, res) => {
   if (validateUser(userEmail, redirectid)) {
     redirectClicks.find({ redirectid }, (error, linkDetails) => {
       if (error) {
-        return res.json({ error: error.status });
+        return res.json({ status: "failed" });
       }
       if(linkDetails) {
         return res.json({ status: "successfull", linkDetails });

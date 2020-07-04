@@ -8,8 +8,9 @@ router.get('/', (req, res) => {
 
 /* Handle Request POST */
 router.post('/', passport.authenticate('register', { session: false }),(req, res) => {
+  console.log(req.user);
   res.json({
-    message: 'Signup successful',
+    message: req.user.message,
     firstname: req.user.firstname,
     lastname: req.user.lastname,
     email: req.user.email,

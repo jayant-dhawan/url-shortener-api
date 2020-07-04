@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
     if(error){
       res.json({ errorStatus: error.status });
     } else if(result.redirectid) {
-      var newURL = baseURL + "r/" + result.redirectid; //return shorten url
+      var newURL = baseURL + result.redirectid; //return shorten url
       res.json({ "shortUrl": newURL });
     } else {
       res.json({ errorMessage : "there is an error" }); // return error if any

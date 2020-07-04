@@ -85,11 +85,11 @@ router.get('/:redirectid', async (req, res) => {
             })
           res.redirect(link.redirect); // After adding click details to database user is redirected to original link
         } else {
-          res.json({ status: "no redirect found" });
+          res.render('404');
         }
       })
     } else {
-      res.json({ status: "no redirect found" });
+      res.render('404');
     }
   });
 });

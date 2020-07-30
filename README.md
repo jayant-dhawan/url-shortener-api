@@ -110,6 +110,14 @@ Authentication Required, return a [ClickDetails](#clickdetails)
 
 Required feilds: `redirectid`
 
+### Delete Click
+
+`DELETE /redirects?id={redirectid}`
+
+Authentication Required, return a [ClickDelete](#clickdelete)
+
+Required feilds: `redirectid`
+
 ## JSON Objects returned by API:
 
 ### UserLogin
@@ -210,7 +218,14 @@ Required feilds: `redirectid`
   ]
 }
 ```
+### ClickDelete
 
+```JSON
+{
+  "status": "successfull",
+  "message": "Short URL deleted"
+}
+```
 
 ## Configuration
 

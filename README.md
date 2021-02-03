@@ -246,6 +246,9 @@ MONGODBURL = "Link to MongoDB Databse"
 
 #JWT Secret Key
 JWTSECRET = "Your JWT Secret Key for authentication"
+
+#Session Secret
+SESSIONSECRET = "Your Session secret key"
 ```
 
 
